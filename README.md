@@ -11,9 +11,8 @@ The goal is to showcase key SQL concepts such as **JOIN, EXISTS, WHERE, GROUP BY
 
 ### 
 ```sql
-
-CREATE DATABASE Vehicle_Rental_System;
 1. Database Creation
+CREATE DATABASE Vehicle_Rental_System;
 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
