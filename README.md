@@ -8,7 +8,7 @@
 
 This repository contains SQL schema and example queries for a Vehicle Rental System. It's aimed at beginners who want to learn core relational concepts and practice real-world queries.
 
-* **Database**: PostgreSQL (recommended)
+* **Database**: PostgreSQL 
 * **Focus**: schema design, constraints, relations, sample queries
 
 ---
