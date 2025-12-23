@@ -16,7 +16,7 @@ This repository contains SQL schema and example queries for a Vehicle Rental Sys
 ## 🧱 Tech / Tools
 
 * PostgreSQL (any modern version)
-* Any SQL client (psql, DBeaver, DataGrip, pgAdmin)
+* Any SQL client (psql, pgAdmin)
 * Optional: drawSQL / any ERD tool for visuals
 
 ---
@@ -80,7 +80,7 @@ CREATE TABLE bookings (
 
 ## ✅ Example Queries (with short explanations)
 
-### Query 1 — INNER JOIN (all booking details)
+### Query 1 -- INNER JOIN (all booking details)
 
 ```sql
 SELECT
@@ -95,11 +95,11 @@ INNER JOIN users u ON b.user_id = u.user_id
 INNER JOIN vehicles v ON b.vehicle_id = v.vehicle_id;
 ```
 
-**ব্যাখ্যা (Bangla):** এ query দিয়ে আমরা দেখব কোন ইউজার কোন ভেহিকল বুক করেছে, স্টার্ট/এন্ড ডেট আর স্ট্যাটাস। `INNER JOIN` থাকায় শুধু সেই রেকর্ডগুলো দেখবে যেগুলোর ইউজার ও ভেহিকল উভয়ই মেইনটেইন আছে।
+**ব্যাখ্যা এই query তে INNER JOIN ব্যবহার করা হয়েছে যাতে bookings table-এর সাথে users এবং vehicles table connect করা যায়। এতে করে কোন user কোন vehicle বুক করেছে, start date, end date আর booking status—সব একসাথে দেখা যায় INNER JOIN ব্যবহার করার কারণে শুধু সেই booking গুলোই দেখাবে যেগুলোর user আর vehicle দুইটাই valid আছে।
 
 ---
 
-### Query 2 — NOT EXISTS (vehicles with no bookings)
+### Query 2 -- NOT EXISTS (vehicles with no bookings)
 
 ```sql
 SELECT *
@@ -111,11 +111,12 @@ WHERE NOT EXISTS (
 );
 ```
 
-**ব্যাখ্যা (Bangla):** যেসব vehicle এখনো কেউ বুক করে নাই সেগুলো বের করতে `NOT EXISTS` ব্যবহার করা হয়েছে।
+**ব্যাখ্যা : যেসব vehicle এখনো কেউ বুক করে নাই সেগুলো বের করতে `NOT EXISTS` ব্যবহার করা হয়েছে। এখানে NOT EXISTS ব্যবহার করা হয়েছে check করার জন্য কোনো vehicle bookings table-এ আছে কিনা। যদি কোনো vehicle-এর জন্য booking না থাকে, তাহলে সেটা result-এ দেখাবে।
+এটা সাধারণত available বা unused vehicle বের করার জন্য কাজে লাগে।
 
 ---
 
-### Query 3 — WHERE (filter available cars)
+### Query 3--WHERE (filter available cars)
 
 ```sql
 SELECT *
@@ -123,11 +124,11 @@ FROM vehicles
 WHERE type = 'car' AND status = 'available';
 ```
 
-**ব্যাখ্যা (Bangla):** কেবল সেই গাড়িগুলো দেখাবে যেগুলো `type = 'car'` এবং `status = 'available'`।
+**ব্যাখ্যা : কেবল সেই গাড়িগুলো দেখাবে যেগুলো `type = 'car'` এবং `status = 'available'`। WHERE clause ব্যবহার করে condition অনুযায়ী data filter করা হয়। এখানে আমরা বলছি—type হবে car এবং status হবে available। মানে শুধু যেসব car এখন ভাড়ার জন্য available আছে সেগুলোই দেখাবে।
 
 ---
 
-### Query 4 — GROUP BY & HAVING (popular vehicles)
+### Query 4 -- GROUP BY & HAVING (popular vehicles)
 
 ```sql
 SELECT
@@ -139,29 +140,10 @@ GROUP BY v.vehicle_name
 HAVING COUNT(b.booking_id) > 2;
 ```
 
-**ব্যাখ্যা (Bangla):** কোন গাড়ি ২ বার বা তার বেশি বুক হয়েছে সেগুলো বের করে। `GROUP BY` দিয়ে গ্রুপ করা হয় এবং `HAVING` দিয়ে গ্রুপের উপর শর্ত দেয়া হয়।
+**ব্যাখ্যা: কোন গাড়ি ২ বার বা তার বেশি বুক হয়েছে সেগুলো বের করে। `GROUP BY` দিয়ে গ্রুপ করা হয় এবং `HAVING` দিয়ে গ্রুপের উপর শর্ত দেয়া হয়। এই query তে GROUP BY ব্যবহার করা হয়েছে vehicle অনুযায়ী booking গুলো group করার জন্য। COUNT দিয়ে প্রতিটা vehicle কতবার booking হয়েছে সেটা গণনা করা হয়। HAVING clause ব্যবহার করে group করার পরে condition দেওয়া হয়েছে—যাদের booking সংখ্যা ২ এর বেশি, শুধু তাদের দেখাবে। WHERE group-এর আগে কাজ করে, আর HAVING group-এর পরে কাজ করে।
 
 ---
 
-## 🛠️ Run locally (quick)
-
-1. Start PostgreSQL and connect via psql:
-
-```bash
-psql -U <your_user>
-```
-
-2. Create DB and switch to it:
-
-```sql
-CREATE DATABASE vehicle_rental_system;
-\c vehicle_rental_system
-```
-
-3. Paste the `CREATE TABLE` statements above.
-4. Insert test/sample data and run the example queries.
-
----
 
 ## 📎 ERD & Viva
 
@@ -170,25 +152,6 @@ CREATE DATABASE vehicle_rental_system;
 
 ---
 
-## 📌 Tips & Improvements
 
-* Add constraints for `start_date <= end_date` (check in application or trigger).
-* Add triggers to auto-calculate `total_cost`.
-* Add indexes on `bookings(vehicle_id)`, `bookings(user_id)` for faster joins.
-* Consider adding a `location` column for vehicles and filtering by city.
 
----
 
-## 🤝 Contributing
-
-PRs welcome. If you add features (pricing rules, discounts, availability calendar), add examples and tests.
-
----
-
-## 📜 License
-
-This repo is free to use — add a license file if you want to specify terms (MIT recommended for demos).
-
----
-
-*Made with ❤️ — polished README for GitHub. Want it fully translated to Bangla, or exported as `README.md` file?*
