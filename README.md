@@ -124,7 +124,7 @@ FROM vehicles
 WHERE type = 'car' AND status = 'available';
 ```
 
-**ব্যাখ্যা : কেবল সেই গাড়িগুলো দেখাবে যেগুলো `type = 'car'` এবং `status = 'available'`। WHERE clause ব্যবহার করে condition অনুযায়ী data filter করা হয়। এখানে আমরা বলছি—type হবে car এবং status হবে available। মানে শুধু যেসব car এখন ভাড়ার জন্য available আছে সেগুলোই দেখাবে।
+**ব্যাখ্যা : কেবল সেই গাড়িগুলো দেখাবে যেগুলো `type = 'car'` এবং `status = 'available'`। WHERE clause ব্যবহার করে condition অনুযায়ী data filter করা হয়। এখানে আমরা বলছি--type হবে car এবং status হবে available। মানে শুধু যেসব car এখন ভাড়ার জন্য available আছে সেগুলোই দেখাবে।
 
 ---
 
