@@ -15,21 +15,18 @@ CREATE DATABASE Vehicle_Rental_System;
 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
-    name VARCHAR(30),
-    email VARCHAR(30) UNIQUE,
+    name VARCHAR(30) NOT NULL,
+    email VARCHAR(30) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
     phone VARCHAR(16),
-    role VARCHAR(10) CHECK (role IN ('Customer', 'Admin')) DEFAULT 'Customer'
+    role VARCHAR(10) 
+        CHECK (role IN ('Customer', 'Admin')) 
+        DEFAULT 'Customer'
 );
 
 Sample Data:
 
-INSERT INTO users (name, email, phone, role)
-VALUES
-    ('Alice', 'alice@example.com', '1234567890', 'Customer'),
-    ('Bob', 'bob@example.com', '0987654321', 'Admin'),
-    ('Charlie', 'charlie@example.com', '1122334455', 'Customer');
-
-3. Vehicles Table
+2. Vehicles Table
 
 Stores details of vehicles for rent.
 
@@ -40,7 +37,7 @@ CREATE TABLE vehicles (
     model VARCHAR(20),
     registration_number VARCHAR(30) UNIQUE,
     rental_price_per_day NUMERIC(10, 2) NOT NULL,
-    availability_status VARCHAR(15) CHECK (availability_status IN ('available', 'rented', 'maintenance')) DEFAULT 'available'
+    status VARCHAR(15) CHECK (availability_status IN ('available', 'rented', 'maintenance')) DEFAULT 'available'
 );
 
 
