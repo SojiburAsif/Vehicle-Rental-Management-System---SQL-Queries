@@ -9,9 +9,11 @@ The goal is to showcase key SQL concepts such as **JOIN, EXISTS, WHERE, GROUP BY
 
 ## 🗂 Database and Tables
 
-### 1. Database Creation
+### 
 ```sql
+
 CREATE DATABASE Vehicle_Rental_System;
+1. Database Creation
 
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
