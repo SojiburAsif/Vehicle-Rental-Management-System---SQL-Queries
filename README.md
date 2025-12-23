@@ -24,7 +24,6 @@ CREATE TABLE users (
         DEFAULT 'Customer'
 );
 
-Sample Data:
 
 2. Vehicles Table
 
@@ -41,7 +40,7 @@ CREATE TABLE vehicles (
 );
 
 
-Bookings Table
+3. Bookings Table
 
 Stores booking records and links users to vehicles.
 
